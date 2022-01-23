@@ -37,12 +37,12 @@ class DigitsPainter extends CustomPainter {
 
     digitStyle = GoogleFonts.marvel(
       color: DIGITS_COLOR,
-      fontSize: radius / 7,
+      fontSize: radius / 6,
       fontWeight: FontWeight.bold,
     );
 
     Paint digitPaint = Paint()..color = digitsColor;
-    canvas.translate(radius * 0.96, radius * 0.91);
+    canvas.translate(radius * 0.97, radius * 0.9);
     radius *= 0.79; // Reduced due to border (see border_paint.dart)
     // and ticks
 
