@@ -144,6 +144,8 @@ class HandsPainter extends CustomPainter {
       ..strokeWidth = 4
       ..style = PaintingStyle.fill;
 
+    // canvas.translate(radius, radius);
+
     Path hourHand = Path();
     hourHand.moveTo(-HANDS_WIDTH / 2, 0);
     hourHand.relativeLineTo(hourHandLength / 2, HANDS_WIDTH);
