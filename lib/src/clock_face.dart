@@ -8,7 +8,6 @@ import 'package:clock/src/digits_painter.dart';
 import 'package:clock/src/hands_paint.dart';
 
 Widget ClockFace(Size size) {
-  print(size);
   return AspectRatio(
     aspectRatio: 1.0,
     child: ClipOval(
@@ -37,11 +36,10 @@ Widget ClockFace(Size size) {
                   size.width / 12, size.height / 26),
               child: YearBox(size),
             ),
-            // C,ontainer(
-            //   height: size.height,
-            //   width: size.width,
-            //   child: HandsPaint(size)
-            // )
+            Container(
+                height: size.height,
+                width: size.width,
+                child: HandsPaint(size)),
           ])),
     ),
   );
