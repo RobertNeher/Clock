@@ -29,13 +29,16 @@ class WeekdayDial extends StatelessWidget {
         fontSize: radius * 0.2,
         fontWeight: FontWeight.normal);
     final double segment = (2 * pi) / WEEKDAYS.length;
+    final double correctionFactor = pi / (2 * WEEKDAYS.length);
 
     for (int i = 0; i < WEEKDAYS.length; i++) {
       textDial.add(CustomPaint(
           painter: CurvedTextPainter(radius * 0.85, WEEKDAYS[i], textStyle,
-              initialAngle: i * segment)));
+              initialAngle: i * segment - correctionFactor)));
       textDial.add(
-          CustomPaint(painter: DotPainter(radius * 0.68, (i + 1) * segment)));
+          CustomPaint(
+          painter:
+              DotPainter(radius * 0.68, (i + 1) * segment - correctionFactor)));
     }
 
     return AspectRatio(
