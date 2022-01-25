@@ -13,19 +13,12 @@ class WeekdayDial extends StatelessWidget {
 
   static const List<String> WEEKDAYS = [
     'SUN',
-    '.',
     'MON',
-    '.',
     'TUE',
-    '.',
     'WED',
-    '.',
     'THU',
-    '.',
     'FRI',
-    '.',
     'SAT',
-    '.'
   ];
 
   @override
@@ -37,12 +30,12 @@ class WeekdayDial extends StatelessWidget {
         fontWeight: FontWeight.normal);
     final double segment = (2 * pi) / WEEKDAYS.length;
 
-    for (int i = 0; i < WEEKDAYS.length - 1; i++) {
+    for (int i = 0; i < WEEKDAYS.length; i++) {
       textDial.add(CustomPaint(
-          painter: WEEKDAYS[i] == '.'
-              ? DotPainter()
-              : CurvedTextPainter(radius * 0.85, WEEKDAYS[i], textStyle,
-                  initialAngle: i * segment)));
+          painter: CurvedTextPainter(radius * 0.85, WEEKDAYS[i], textStyle,
+              initialAngle: i * segment)));
+      textDial.add(
+          CustomPaint(painter: DotPainter(radius * 0.68, (i + 1) * segment)));
     }
 
     return AspectRatio(
@@ -55,13 +48,20 @@ class WeekdayDial extends StatelessWidget {
 }
 
 class DotPainter extends CustomPainter {
+  double radius;
+  double angle;
+  DotPainter(this.radius, this.angle);
+
   @override
   void paint(Canvas canvas, Size size) {
     Paint dotPaint = Paint()
       ..color = DIGITS_COLOR
-      ..style = PaintingStyle.stroke;
+      ..strokeWidth = 5
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
 
-    canvas.drawPoints(PointMode.points, [Offset(0, 0)], dotPaint);
+    canvas.rotate(angle);
+    canvas.drawPoints(PointMode.points, [Offset(radius, radius)], dotPaint);
   }
 
   @override
