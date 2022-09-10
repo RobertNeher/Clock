@@ -3,13 +3,12 @@ import 'dart:ui';
 import 'package:clock/src/digits_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:clock/src/seconds_weekday_wheel/curved_text.dart';
-import '../configuration.dart';
+import 'package:clock/src/curved_text_painter.dart';
 
 class WeekdayDial extends StatelessWidget {
-  double radius;
+  Size size = Size.zero;
 
-  WeekdayDial(this.radius, {Key? key}) : super(key: key);
+  WeekdayDial(this.size, {Key? key}) : super(key: key);
 
   static const List<String> WEEKDAYS = [
     'SUN',
@@ -24,21 +23,17 @@ class WeekdayDial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> textDial = <Widget>[];
-    TextStyle textStyle = GoogleFonts.marvel(
+    final TextStyle textStyleSeconds = GoogleFonts.marvel(
         color: DIGITS_COLOR,
-        fontSize: radius * 0.2,
+        fontSize: (size.width / 2) * 0.02,
         fontWeight: FontWeight.normal);
     final double segment = (2 * pi) / WEEKDAYS.length;
-    final double correctionFactor = pi / (2 * WEEKDAYS.length);
 
     for (int i = 0; i < WEEKDAYS.length; i++) {
       textDial.add(CustomPaint(
-          painter: CurvedTextPainter(radius * 0.85, WEEKDAYS[i], textStyle,
-              initialAngle: i * segment - correctionFactor)));
-      textDial.add(
-          CustomPaint(
-          painter:
-              DotPainter(radius * 0.68, (i + 1) * segment - correctionFactor)));
+          painter: CurvedTextPainter(0, WEEKDAYS[i], textStyleSeconds,
+              initialAngle: i * segment)));
+      textDial.add(CustomPaint(painter: DotPainter((i + 1) * segment, size)));
     }
 
     return AspectRatio(
@@ -51,20 +46,21 @@ class WeekdayDial extends StatelessWidget {
 }
 
 class DotPainter extends CustomPainter {
-  double radius;
-  double angle;
-  DotPainter(this.radius, this.angle);
+  final Size dialSize;
+  final double angle;
+  DotPainter(this.angle, this.dialSize);
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint dotPaint = Paint()
       ..color = DIGITS_COLOR
-      ..strokeWidth = 5
+      ..strokeWidth = 10
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
-    canvas.rotate(angle);
-    canvas.drawPoints(PointMode.points, [Offset(radius, radius)], dotPaint);
+    canvas.rotate(angle + pi / 4);
+    canvas.drawPoints(PointMode.points,
+        [Offset(dialSize.width / 3.8, dialSize.height / 3.8)], dotPaint);
   }
 
   @override

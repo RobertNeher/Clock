@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
 class CurvedTextPainter extends CustomPainter {
   CurvedTextPainter(this.radius, this.text, this.textStyle,
       {this.initialAngle = 0});
 
-  final num radius;
+  final double radius;
   final String text;
   final double initialAngle;
   final TextStyle textStyle;
@@ -14,7 +14,8 @@ class CurvedTextPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.translate(size.width / 2, size.height / 2 - radius);
+    print(radius);
+    canvas.translate(radius * 1.8, radius * 0.8);
 
     if (initialAngle != 0) {
       final d = 2 * radius * sin(initialAngle / 2);
@@ -25,11 +26,12 @@ class CurvedTextPainter extends CustomPainter {
 
     double angle = initialAngle;
     for (int i = 0; i < text.length; i++) {
-      angle = _drawLetter(canvas, text[i], angle);
+      angle = _drawLetter(canvas, text[i], size, angle);
     }
   }
 
-  double _drawLetter(Canvas canvas, String letter, double prevAngle) {
+  double _drawLetter(
+      Canvas canvas, String letter, Size size, double prevAngle) {
     _textPainter.text = TextSpan(text: letter, style: textStyle);
     _textPainter.layout(
       minWidth: 0,
@@ -37,12 +39,12 @@ class CurvedTextPainter extends CustomPainter {
     );
 
     final double d = _textPainter.width;
-    final double alpha = 2 * asin(d / (2 * radius));
+    final double alpha = 2 * asin(d / (size.width));
 
     final newAngle = _calculateRotationAngle(prevAngle, alpha);
     canvas.rotate(newAngle);
 
-    _textPainter.paint(canvas, Offset(0, -_textPainter.height));
+    _textPainter.paint(canvas, Offset(0, -size.height * 0.1));
     canvas.translate(d, 0);
 
     return alpha;

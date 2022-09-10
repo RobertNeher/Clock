@@ -53,7 +53,7 @@ Widget ClockFace(Size size) {
             ),
             // Moon and Stars Wheel
             Positioned.fromRect(
-              rect: Rect.fromLTWH(size.width * 0.285, size.height * 0.1,
+              rect: Rect.fromLTWH(size.width * 0.2, size.height * 0.1,
                   size.width / 3.5, size.height / 3.5),
               child: Container(color: const Color.fromARGB(128, 128, 160, 145)),
             ),

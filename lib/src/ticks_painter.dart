@@ -8,7 +8,7 @@ const double TICK_SIZE_MINUTE = 10;
 const double TICK_SIZE_HOUR = 13;
 
 class TicksPainter extends CustomPainter {
-  late Color ticksColor;
+  Color ticksColor;
   TicksPainter({this.ticksColor = TICKS_COLOR});
 
   @override

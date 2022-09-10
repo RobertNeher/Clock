@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,8 +23,14 @@ const List<String> DIGITS = [
 ];
 
 class DigitsPainter extends CustomPainter {
-  late Color digitsColor;
-  TextStyle? digitStyle;
+  Color digitsColor;
+  TextStyle digitStyle = const TextStyle(
+    fontFamily: "Roboto",
+    decoration: TextDecoration.none,
+    color: Colors.black,
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+  );
 
   DigitsPainter({this.digitsColor = TICKS_COLOR});
 

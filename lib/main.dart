@@ -1,3 +1,4 @@
+// import 'package:clock/src/seconds_weekday_wheel/seconds_weekday_wheel.dart';
 import 'package:flutter/material.dart';
 
 import 'package:clock/src/configuration.dart';
@@ -19,7 +20,7 @@ class MyWatchApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: WatchPage(title: TITLE),
+      home: const WatchPage(title: TITLE),
     );
   }
 }
@@ -36,6 +37,8 @@ class WatchPage extends StatefulWidget {
 class _WatchPageState extends State<WatchPage> {
   @override
   Widget build(BuildContext context) {
+    Size size = Size(
+        MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -57,16 +60,11 @@ class _WatchPageState extends State<WatchPage> {
                 alignment: Alignment.center,
                 children: <Widget>[
                   LayoutBuilder(builder: (context, constraints) {
-                    Size size = Size(
-                      MediaQuery.of(context).size.width,
-                      MediaQuery.of(context).size.height
-                    );
-
                     return Container(
                         alignment: Alignment.center,
                         height: size.height - 100,
-                        child: ClockFace(size)
-                      );
+                        child: ClockFace(
+                            size)); //ClockFace(size)                   );
                   })
                 ],
               ),
